@@ -2,12 +2,28 @@ syntax = "proto3";
 
 package auth;
 
+import "google/api/annotations.proto";
+
 option go_package = "arxonic.sso.v1;ssov1";
 
 service Auth {
-    rpc Register (RegisterRequest) returns (RegisterResponse);
-    rpc Login (LoginRequest) returns (LoginResponse);
-    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+    rpc Register (RegisterRequest) returns (RegisterResponse){
+        option (google.api.http) = {
+            post: "/reg/v1"
+            body: "*"
+        };
+    }
+    rpc Login (LoginRequest) returns (LoginResponse){
+        option (google.api.http) = {
+            post: "/login/v1"
+            body: "*"
+        };
+    }
+    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse){
+        option (google.api.http) = {
+            get: "/is-admin/v1"
+        };
+    }
 }
 
 message RegisterRequest {
